@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:gap/gap.dart';
 import 'package:widget_test/pages/layout/layout_sample.dart';
 import 'package:widget_test/pages/list_view.dart';
-import 'package:widget_test/pages/package_test.dart';
+import 'package:widget_test/pages/package_pages/package_test.dart';
 import 'package:widget_test/pages/snack_bar.dart';
 import 'package:widget_test/pages/textfield.dart';
 

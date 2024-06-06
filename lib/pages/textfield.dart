@@ -9,12 +9,21 @@ class TextFieldTest extends StatefulWidget {
 }
 
 class _TextFieldTestState extends State<TextFieldTest> {
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   String textValue = "";
   void _onChangedText(){
-    textValue = _textController.value as String;
+    textValue = _controller.value as String;
   }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.addListener(() {
+      _controller.selection = TextSelection(baseOffset: 0, extentOffset: 5);
+      _controller.text = _controller.text.toUpperCase();
+    });
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,45 +31,43 @@ class _TextFieldTestState extends State<TextFieldTest> {
         title: const Text("textField sample"),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 20.0),
-              height: 300.0,
-              color: Colors.red,
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextField(
-                    controller: _textController,
-                    onChanged: (text){setState(() {
-                      textValue = text;
-                    });}
-                  ),
-                  const Gap(20.0),
-                  TextFormField()
-                ],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                controller: _controller,
+                decoration: InputDecoration(labelText: 'Enter text'),
               ),
-            ),
-            const Gap(20.0),
-            SizedBox(
-              height: 200,
-              child: RichText(
-                text: TextSpan(
-                  text: 'first textfield value ',
-                  style: const TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black
-                  ),
-                  children: <TextSpan>[
-                    const TextSpan(text: ':', style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(text: textValue),
-                  ],
-                ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // 버튼을 눌렀을 때 특정 텍스트 영역을 선택
+                  setState(() {
+                    _controller.selection = TextSelection(baseOffset: 7, extentOffset: 14);
+                  });
+                },
+                child: Text('Select "Flutter"'),
+              ),
+              const Gap(20.0),
+              SizedBox(
+                  height: 200,
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'first textfield value ',
+                      style: const TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black
+                      ),
+                      children: <TextSpan>[
+                        const TextSpan(text: ':', style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: textValue),
+                      ],
+                    ),
+                  )
               )
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -11,6 +11,7 @@ class TextFieldTest extends StatefulWidget {
 class _TextFieldTestState extends State<TextFieldTest> {
   final TextEditingController _controller = TextEditingController();
   String textValue = "";
+  final Key _formKey = GlobalKey();
   void _onChangedText(){
     textValue = _controller.value as String;
   }
@@ -19,7 +20,7 @@ class _TextFieldTestState extends State<TextFieldTest> {
     // TODO: implement initState
     super.initState();
     _controller.addListener(() {
-      _controller.selection = TextSelection(baseOffset: 0, extentOffset: 5);
+      // _controller.selection = TextSelection(baseOffset: 0, extentOffset: 5);
       _controller.text = _controller.text.toUpperCase();
     });
 
@@ -37,18 +38,51 @@ class _TextFieldTestState extends State<TextFieldTest> {
             children: <Widget>[
               TextField(
                 controller: _controller,
-                decoration: InputDecoration(labelText: 'Enter text'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // 버튼을 눌렀을 때 특정 텍스트 영역을 선택
+                decoration: const InputDecoration(
+                  labelText: 'E-MAIL',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.deepOrangeAccent
+                    )
+                  ),
+                  focusColor: Colors.lightBlue,
+                ),
+                onChanged: (text){
                   setState(() {
-                    _controller.selection = TextSelection(baseOffset: 7, extentOffset: 14);
+                    textValue = text;
                   });
                 },
-                child: Text('Select "Flutter"'),
               ),
+              const Gap(20.0),
+              Form(
+                key: _formKey,
+                child: TextFormField(
+                  obscureText: true,
+                  cursorColor: Colors.deepOrangeAccent,
+                  decoration: const InputDecoration(
+                    labelText: 'PASSWORD',
+                    labelStyle: TextStyle(
+                      color: Colors.lightBlue
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.lightBlue
+                      )
+                    ),
+                    focusedBorder:  OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.lightBlue
+                        )
+                    ),
+                    ),
+                  validator: (value){
+                    if (value == null || value.isEmpty) {
+                      return '텍스트를 입력하세요';
+                    }
+                    return null;
+                  },
+                  ),
+                ),
               const Gap(20.0),
               SizedBox(
                   height: 200,

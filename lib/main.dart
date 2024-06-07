@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gap/gap.dart';
+import 'package:widget_test/pages/button_test.dart';
 import 'package:widget_test/pages/layout/layout_sample.dart';
 import 'package:widget_test/pages/list_view.dart';
 import 'package:widget_test/pages/package_pages/package_test.dart';
@@ -119,6 +120,15 @@ class MainPage extends StatelessWidget {
                             );
                           },
                           child: const Text("Package test")
+                      ),
+                      const Gap(20.0),
+                      ElevatedButton(
+                          onPressed: (){
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => const ButtonTest())
+                            );
+                          },
+                          child: const Text("Button test")
                       ),
                     ],
                   ),

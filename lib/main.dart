@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:gap/gap.dart';
-import 'package:widget_test/pages/button_test.dart';
+import 'package:widget_test/pages/buttons/button_test.dart';
 import 'package:widget_test/pages/layout/layout_sample.dart';
 import 'package:widget_test/pages/list_view.dart';
 import 'package:widget_test/pages/package_pages/package_test.dart';

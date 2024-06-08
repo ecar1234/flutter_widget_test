@@ -72,37 +72,35 @@ class _LayoutFeatureSampleState extends State<LayoutFeatureSample> {
             ],
           ),
         ),
-        Expanded(
-            child:Column(
-              children: [
-                Container(
-                  height: 100,
-                  decoration: const BoxDecoration(color: Colors.lightBlue),
-                  child:  Row(
-                    crossAxisAlignment: _alignment,
-                    children: const [
-                      Icon(Icons.star),
-                      Icon(Icons.star, size: 50,),
-                      Icon(Icons.star),
-                    ],
-                  ),
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 400,
+                decoration: const BoxDecoration(color: Colors.lightBlue),
+                child:  Row(
+                  crossAxisAlignment: _alignment,
+                  children: const [
+                    Icon(Icons.star),
+                    Icon(Icons.star, size: 50,),
+                    Icon(Icons.star),
+                  ],
                 ),
-                Expanded(
-                    child: Container(
-                      width: 100,
-                      decoration: const BoxDecoration(color: Colors.amber),
-                      child:  Column(
-                        crossAxisAlignment: _alignment,
-                        children: const [
-                          Icon(Icons.star ),
-                          Icon(Icons.star, size: 50),
-                          Icon(Icons.star),
-                        ],
-                      ),
-                    )
+              ),
+              Container(
+                height: 400 ,
+                decoration: const BoxDecoration(color: Colors.amber),
+                child:  Column(
+                  crossAxisAlignment: _alignment,
+                  children: const [
+                    Icon(Icons.star ),
+                    Icon(Icons.star, size: 50),
+                    Icon(Icons.star),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
         ),
       ],
     );

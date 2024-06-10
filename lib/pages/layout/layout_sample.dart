@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:widget_test/pages/layout/cupertino_layout.dart';
 
 import 'main_axis_aligment.dart';
 import 'cross_axis_aligment.dart';
@@ -50,6 +51,15 @@ class LayoutMain extends StatelessWidget {
                   );
                 },
                 child: const Text("CrossAxisAlignment")
+            ),
+            const Gap(20.0),
+            ElevatedButton(
+                onPressed: (){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const CupertinoPage())
+                  );
+                },
+                child: const Text("Cupertino layout")
             ),
           ],
         ),

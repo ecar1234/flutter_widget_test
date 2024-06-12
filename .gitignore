@@ -42,3 +42,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#secret
+/android/app/jk_key_store.jks
+/android/play_store_key.json
+/android/key.properties
+
+# FVM Version Cache
+.fvm/

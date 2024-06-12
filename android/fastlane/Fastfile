@@ -1,0 +1,88 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  lane :get_build_ver do
+    versionName = File.read("../../versionNum")
+    versionName
+  end
+
+  lane :include_code do
+    versionCode = File.read("../../versionCode").to_i
+    versionCode = versionCode+1
+
+    f = File.new("../../versionCode", "w")
+    f.write(versionCode)
+    f.close
+
+    versionCode
+  end
+
+  lane :build_aab do
+    build_number = include_code()
+    build_ver = get_build_ver()
+
+    Dir.chdir "../.." do
+      sh("flutter", "clean")
+      sh("flutter", "build", "appbundle","--build-number=#{build_number}","--build-name=#{build_ver}.#{build_number}")
+    end
+    "#{build_ver}.#{build_number}"
+  end
+
+
+  desc "Beta"
+  lane :beta do
+
+
+    build_aab()
+
+    upload_to_play_store(
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      track:'internal',
+      release_status: 'completed',
+      rollout: '1.0',
+      aab: '../build/app/outputs/bundle/release/app-release.aab',
+      package_name: 'com.madebyjk.widget_practice',
+      timeout: 600
+    )
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    #gradle(task: "clean assembleRelease")
+     upload_to_play_store(
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      track:'internal',
+      release_status:'draft',
+      aab: '../build/app/outputs/bundle/release/app-release.aab',
+      package_name: 'com.madebyjk.widget_practice',
+      timeout: 600
+    )
+
+  end
+end
